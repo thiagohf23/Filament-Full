@@ -2,18 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
 use Dom\Text;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\User;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\UserResource\RelationManagers;
 
 class UserResource extends Resource
 {
@@ -42,6 +44,19 @@ class UserResource extends Resource
 
             TextColumn::make('email')
                 ->sortable(),
+
+            IconColumn::make('is_admin')
+              ->label('Admin?')
+                ->boolean(),
+                // ->trueIcon('heroicon-o-check-badge')
+                // ->falseIcon('heroicon-o-x-mark'),
+
+            TextColumn::make('phone')
+                ->label('Telefone'),
+
+            ToggleColumn::make('is_active')
+                ->label('Usuários Ativos')
+                ->toggleable(isToggledHiddenByDefault: true),
 
             TextColumn::make('created_at')
                 ->label('Criado em')
